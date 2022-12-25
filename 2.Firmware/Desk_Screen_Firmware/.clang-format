@@ -1,0 +1,129 @@
+---
+BasedOnStyle:  Google
+ColumnLimit:    120
+MaxEmptyLinesToKeep: 1
+# 允许排序#include
+SortIncludes: false
+
+# 标准: Cpp03, Cpp11, Auto
+Standard:        Auto
+IndentWidth:     4
+# tab宽度
+TabWidth:        4
+# 使用tab字符: Never, ForIndentation, ForContinuationAndIndentation, Always
+UseTab:          Never
+
+# 访问说明符(public、private等)的偏移
+AccessModifierOffset: -4
+# 构造函数的初始化列表的缩进宽度
+ConstructorInitializerIndentWidth: 4
+# 延续的行的缩进宽度
+ContinuationIndentWidth: 4
+# 缩进case标签
+IndentCaseLabels: true
+IndentFunctionDeclarationAfterType: false
+# 左对齐逃脱换行(使用反斜杠换行)的反斜杠
+AlignEscapedNewlinesLeft: false
+# 对齐连续的尾随的注释
+AlignTrailingComments: true
+
+# 允许函数声明的所有参数在放在下一行
+AllowAllParametersOfDeclarationOnNextLine: true
+# 自动检测函数的调用和定义是否被格式为每行一个参数(Experimental)
+ExperimentalAutoDetectBinPacking: false
+# 在ObjC的protocol列表前添加一个空格
+ObjCSpaceBeforeProtocolList: true
+# 去除C++11的列表初始化的大括号{后和}前的空格
+Cpp11BracedListStyle: false
+
+# 允许短的块放在同一行
+AllowShortBlocksOnASingleLine: true
+# 允许短的if语句保持在同一行
+AllowShortIfStatementsOnASingleLine: false
+# 允许短的循环保持在同一行
+AllowShortLoopsOnASingleLine: false
+# 允许短的函数放在同一行
+AllowShortFunctionsOnASingleLine: true
+# 允许短的case标签放在同一行
+AllowShortCaseLabelsOnASingleLine: false
+# 总是在template声明后换行
+AlwaysBreakTemplateDeclarations: true
+# 总是在多行string字面量前换行
+AlwaysBreakBeforeMultilineStrings: false
+
+# 在二元运算符前换行
+BreakBeforeBinaryOperators: false
+# 在三元运算符前换行
+BreakBeforeTernaryOperators: false
+# 在构造函数的初始化列表的逗号前换行
+BreakConstructorInitializersBeforeComma: true
+
+# false表示所有形参要么都在同一行，要么都各自一行
+BinPackParameters: true
+# 构造函数的初始化列表要么都在同一行，要么都各自一行
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+# 继承最常用的指针和引用的对齐方式
+DerivePointerBinding: false
+
+PointerBindsToType: true
+
+# 命名空间的缩进: None, Inner(缩进嵌套的命名空间中的内容), All
+NamespaceIndentation:	All
+
+# 对于每个在行字符数限制之外的字符的penalty
+PenaltyExcessCharacter: 50
+# 在call(后对函数调用换行的penalty
+PenaltyBreakBeforeFirstCallParameter: 30
+# 在一个注释中引入换行的penalty
+PenaltyBreakComment: 1000
+# 第一次在<<前换行的penalty
+PenaltyBreakFirstLessLess: 10
+# 在一个字符串字面量中引入换行的penalty
+PenaltyBreakString: 100
+# 将函数的返回类型放到它自己的行的penalty
+PenaltyReturnTypeOnItsOwnLine: 50
+
+# 在尾随的评论前添加的空格数
+SpacesBeforeTrailingComments: 4
+# 在圆括号的(后和)前添加空格
+SpacesInParentheses: false
+# 在尖括号的<后和>前添加空格
+SpacesInAngles:  false
+# 在空的圆括号中添加空格
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+# 在C风格类型转换后添加空格
+SpaceAfterCStyleCast: false
+SpaceAfterControlStatementKeyword: true
+# 在赋值运算符之前添加空格
+SpaceBeforeAssignmentOperators: true
+
+# 在大括号前换行: Attach(始终将大括号附加到周围的上下文), Linux(除函数、命名空间和类定义，与Attach类似), 
+#   Mozilla(除枚举、函数、记录定义，与Attach类似), Stroustrup(除函数定义、catch、else，与Attach类似), 
+#   Allman(总是在大括号前换行), GNU(总是在大括号前换行，并对于控制语句的大括号增加额外的缩进), WebKit(在函数前换行), Custom
+#   注：这里认为语句块也属于函数
+BreakBeforeBraces: Attach
+
+# 大括号换行，只有当BreakBeforeBraces设置为Custom时才有效
+BraceWrapping:
+    AfterCaseLabel: true
+    # class定义后面
+    AfterClass: true
+    # 控制语句后面
+    AfterControlStatement: true
+    # enum定义后面
+    AfterEnum: true
+    # 函数定义后面
+    AfterFunction: true
+    # 命名空间定义后面
+    AfterNamespace: true
+    # struct定义后面
+    AfterStruct: true
+    # union定义后面
+    AfterUnion: true
+    # catch之前
+    BeforeCatch: true
+    # else之前
+    BeforeElse: true
+    IndentBraces: false
+...

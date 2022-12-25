@@ -7,9 +7,8 @@
  *      INCLUDES
  *********************/
 #include "lv_port_indev.h"
-#include "lvgl.h"
-#include <Arduino.h>
 #include "ft6336.hpp"
+#include "lvgl.h"
 
 /*********************
  *      DEFINES

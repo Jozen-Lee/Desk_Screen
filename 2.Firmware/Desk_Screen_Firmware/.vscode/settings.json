@@ -16,6 +16,13 @@
         "tuple": "cpp",
         "utility": "cpp",
         "i2c.h": "c",
-        "lv_port_indev.h": "c"
+        "lv_port_indev.h": "c",
+        "ctime": "cpp",
+        "iomanip": "cpp",
+        "limits": "cpp",
+        "numeric": "cpp",
+        "streambuf": "cpp",
+        "type_traits": "cpp",
+        "service_device.h": "c"
     }
 }
