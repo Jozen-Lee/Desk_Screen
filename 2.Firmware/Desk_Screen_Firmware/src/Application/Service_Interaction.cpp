@@ -40,7 +40,7 @@ void Service_Interaction_Init(void) {
  */
 void Interact_updateInfo(void* arg) {
     /* Infinite loop */
-    TickType_t _xTicksToWait = pdMS_TO_TICKS(10000);
+    TickType_t _xTicksToWait = pdMS_TO_TICKS(60000);
     String country, province, city, weather, temp;
     String loc;
     for (;;) {

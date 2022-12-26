@@ -20,7 +20,7 @@ extern TaskHandle_t Beep_Handle;
 extern TaskHandle_t Screen_Handle;
 extern TaskHandle_t Touchpad_Handle;
 
-
+extern QueueHandle_t  MusicCmd_Port;
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif

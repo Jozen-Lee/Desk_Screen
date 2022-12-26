@@ -106,16 +106,17 @@ uint16_t Network::getBilibiliFans(String uid) {
 #define NTP2 "ntp2.aliyun.com"
 #define NTP3 "ntp3.aliyun.com"
 /**
- * @brief This function only used to print time
+ * @brief Config World time
  *
  */
 void Network::configWorldTime() {
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo)) {
         configTime(8 * 3600, 0, NTP1, NTP2, NTP3);
+        return;
     }
     /* format output: 2021-10-24 23:00:44 Sunday */
-    // Serial.println(&timeinfo, "%F %T %A");
+    Serial.println(&timeinfo, "%F %T %A");
 }
 
 String Network::composeZXaddress(String city) {

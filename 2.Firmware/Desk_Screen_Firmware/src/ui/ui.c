@@ -6,7 +6,6 @@
 #include "ui.h"
 #include "ui_helpers.h"
 #include "Application/Service_Device.h"
-#include "Application/Service_Interaction.h"
 
 ///////////////////// VARIABLES ////////////////////
 lv_obj_t * ui_HomePage;
