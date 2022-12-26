@@ -26,7 +26,6 @@
 #include "lvgl/demos/lv_demos.h"
 #include "lv_drivers/win32drv/win32drv.h"
 #include "esp32_ui/ui.h"
-#include "test.h"
 
 #if _MSC_VER >= 1200
 // Restore compilation warnings.
@@ -178,94 +177,6 @@ int main()
         return -1;
     }
 
-    /*if (!multiple_display_mode_initialization())
-    {
-        return -1;
-    }
-    else
-    {
-        for (size_t i = 0; i < LVGL_SIMULATOR_MAXIMUM_DISPLAYS; ++i)
-        {
-            lv_win32_window_context_t* context = (lv_win32_window_context_t*)(
-                lv_win32_get_window_context(g_display_window_handles[i]));
-            if (context)
-            {
-                lv_disp_set_default(context->display_device_object);
-                switch (i)
-                {
-                case 0:
-                    lv_demo_widgets();
-                    break;
-                case 1:
-                    lv_demo_benchmark();
-                    break;
-                case 2:
-                    lv_example_style_1();
-                    break;
-                case 3:
-                    lv_example_get_started_1();
-                    break;
-                case 4:
-                    lv_example_anim_1();
-                    break;
-                case 5:
-                    lv_example_style_2();
-                    break;
-                case 6:
-                    lv_example_get_started_2();
-                    break;
-                case 7:
-                    lv_example_anim_2();
-                    break;
-                case 8:
-                    lv_example_style_3();
-                    break;
-                case 9:
-                    lv_example_get_started_3();
-                    break;
-                case 10:
-                    lv_example_anim_3();
-                    break;
-                case 11:
-                    lv_example_style_4();
-                    break;
-                case 12:
-                    lv_example_style_5();
-                    break;
-                case 13:
-                    lv_example_style_6();
-                    break;
-                case 14:
-                    lv_example_imgfont_1();
-                    break;
-                case 15:
-                    lv_example_style_7();
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-    }*/
-
-    //lv_win32_window_context_t* context = (lv_win32_window_context_t*)(
-    //    lv_win32_get_window_context(g_display_window_handles[1]));
-    //if (context)
-    //{
-    //    lv_obj_t* scr = lv_disp_get_scr_act(context->display_device_object);
-
-    //    /*Create a slider in the center of the display*/
-    //    lv_obj_t* slider = lv_slider_create(scr);
-    //    lv_obj_set_width(slider, 200);                          /*Set the width*/
-    //    lv_obj_center(slider);                                  /*Align to the center of the parent (screen)*/
-    //    lv_obj_add_event_cb(slider, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);     /*Assign an event function*/
-
-    //    /*Create a label above the slider*/
-    //    label = lv_label_create(scr);
-    //    lv_label_set_text(label, "0");
-    //    lv_obj_align_to(label, slider, LV_ALIGN_OUT_TOP_MID, 0, -15);    /*Align top of the slider*/
-    //}
-
     /*
      * Demos, benchmarks, and tests.
      *
@@ -320,7 +231,7 @@ int main()
     // ----------------------------------
     // Demos from lv_examples
     // ----------------------------------
-    //lv_holo_cubic_gui();
+    ui_init();
     //lv_demo_widgets();           // ok
     //lv_demo_benchmark();
     // lv_demo_keypad_encoder();    // ok

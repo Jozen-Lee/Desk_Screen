@@ -5,7 +5,6 @@
   <ItemGroup>
     <ClInclude Include="lv_conf.h" />
     <ClInclude Include="lv_drv_conf.h" />
-    <ClInclude Include="test.h" />
     <ClInclude Include="esp32_ui\ui.h">
       <Filter>eps32_ui</Filter>
     </ClInclude>
@@ -22,7 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LVGL.Simulator.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="esp32_ui\ui.c">
       <Filter>eps32_ui</Filter>
     </ClCompile>

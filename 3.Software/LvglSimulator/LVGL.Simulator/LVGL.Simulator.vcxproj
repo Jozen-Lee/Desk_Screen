@@ -33,7 +33,6 @@
     <ClInclude Include="esp32_ui\ui.h" />
     <ClInclude Include="esp32_ui\ui_helpers.h" />
     <ClInclude Include="lv_conf.h" />
-    <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lv_drv_conf.h" />
@@ -62,7 +61,6 @@
     <ClCompile Include="esp32_ui\ui_img_tutu_png.c" />
     <ClCompile Include="esp32_ui\ui_img_weather_png.c" />
     <ClCompile Include="LVGL.Simulator.cpp" />
-    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LVGL.Simulator.rc" />
