@@ -10,6 +10,7 @@
  */
 #include "Application/Service_Device.h"
 #include "Application/System_Config.h"
+#include "music.h"
 #include "ui_desk.h"
 
 /* Private define ------------------------------------------------------------*/
@@ -28,7 +29,7 @@ void Device_Touchpad(void* arg);
  *
  */
 void Service_Devices_Init(void) {
-    // xTaskCreate(Device_Beep, "Dev.Beep", Small_Stack_Size, NULL, PriorityHigh, &Beep_Handle);
+    xTaskCreatePinnedToCore(Device_Beep,        "Dev.Beep",         2000,   NULL, 1, &Beep_Handle,      0);
     xTaskCreatePinnedToCore(Device_Screen,      "Dev.Screen",       10000,  NULL, 1, &Screen_Handle,    0);
     xTaskCreatePinnedToCore(Device_Touchpad,    "Dev.Touchpad",     10000,  NULL, 1, &Touchpad_Handle,  0);
 }
@@ -41,12 +42,17 @@ void Device_Touchpad(void* arg) {
     /* Infinite loop */
     TickType_t _xTicksToWait = pdMS_TO_TICKS(10);
     uint16_t x, y;
+    int8_t cmd;
+
     for (;;) {
         touch.update();
         // if (touch.pressed()) {
         //     touch.xy(&x, &y);
         //     Serial.printf("x: %d, y: %d\n", x, y);
-        //     // xTaskNotifyGive(Screen_Handle);
+        //     if(x < 50) cmd = -1;
+        //     else if(x > 50 && x < 150) cmd = 0;
+        //     else cmd = 1;
+        //     xQueueSend(MusicCmd_Port, &cmd, 0);
         // }
       
         vTaskDelay(_xTicksToWait);
@@ -58,12 +64,46 @@ void Device_Touchpad(void* arg) {
  * 
  */
 void Device_Screen(void* arg) {
-    /* Draw default page */
-    ui_desk();
+    TickType_t _xTicksToWait = pdMS_TO_TICKS(150);
     for (;;) {
         screen.refresh();
         /* Refresh screen when the screen was touched */
         ulTaskNotifyTake(pdTRUE,portMAX_DELAY);
-        vTaskDelay(pdMS_TO_TICKS(150));
+
+        /* Wait for the lvgl handle */
+        vTaskDelay(_xTicksToWait);
     }
+}
+void Device_Beep(void* arg) {
+    int8_t cmd;
+    uint8_t index = 0;
+    /* Init dedault music */
+    beep.music_set(music[0][0], music[0][1], false);
+    for (;;) {
+        if (xQueueReceive(MusicCmd_Port, &cmd, portMAX_DELAY) == pdPASS) {
+            Serial.printf("%d\n",cmd);
+            switch (cmd) {
+                /* backward */
+                case -1:
+                    index = index == 0 ? MUSIC_NUM - 1 : (index - 1) % MUSIC_NUM;
+                    beep.music_set(music[index][0], music[index][1], true);
+                    break;
+                
+                /* play */
+                case 0:
+                    if (beep.isPlaying())
+                        beep.stop();
+                    else
+                        beep.start();
+                    break;
+
+                /* forward */
+                case 1:
+                    index = (index + 1) % MUSIC_NUM;
+                    beep.music_set(music[index][0], music[index][1], true);
+                    break;
+            }
+        }
+    }
+
 }

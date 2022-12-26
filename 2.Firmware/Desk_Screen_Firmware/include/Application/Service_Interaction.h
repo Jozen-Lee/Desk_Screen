@@ -17,6 +17,10 @@
 extern "C" {
 #endif
 extern TaskHandle_t lvgl_Handle;
+extern TaskHandle_t updateInfo_handle;
+extern TaskHandle_t music_handle;
+
+extern QueueHandle_t  MusicCmd_Port;
 
 #ifdef __cplusplus
 } /*extern "C"*/

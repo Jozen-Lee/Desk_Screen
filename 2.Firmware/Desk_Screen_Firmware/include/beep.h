@@ -26,11 +26,14 @@ public:
     Beep(){}
     ~Beep(){}
 	void init(void);
-    void music_set(uint16_t* tune, uint16_t* beat, bool loop);
+    void music_set(int16_t* tune, int16_t* beat, bool loop);
     void start(void);
     void stop(void);
+    void forward(void);
+    void backward(void);
     void setBasicBeat(uint16_t beat_time);
     bool isPlaying(void);
+
 };
 
 #endif

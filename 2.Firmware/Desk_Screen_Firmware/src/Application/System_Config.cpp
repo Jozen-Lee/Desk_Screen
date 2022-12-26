@@ -12,6 +12,10 @@
 #include "Application/Service_Device.h"
 #include "Application/Service_Interaction.h"
 #include "ui/ui.h"
+
+/* RTOS resources */
+QueueHandle_t  MusicCmd_Port;
+
 /* Devices */
 Display screen;
 Bluetooth blt;
@@ -19,6 +23,10 @@ Beep beep;
 Network wifi;
 
 void System_Resource_Init(void){
+
+    /* RTOS resources Init */
+    MusicCmd_Port = xQueueCreate(4,sizeof(int8_t));
+
     /* Begin Serial */
     Serial.begin(115200);
 
@@ -37,11 +45,11 @@ void System_Resource_Init(void){
     /* connect network */
     String ssid = "TP-LINK_1CC0";           // line-1 for WiFi ssid
     String password = "woaiwojia012668";    // line-2 for WiFi password
-    #if 0
+    #if 1
         wifi.init(ssid, password);
 
-        // Change to your BiliBili UID
-        Serial.println(wifi.getBilibiliFans("472453800"));
+        /* Change to your BiliBili UID */ 
+        // Serial.println(wifi.getBilibiliFans("472453800"));
     #endif  
 
     /* Init ui */

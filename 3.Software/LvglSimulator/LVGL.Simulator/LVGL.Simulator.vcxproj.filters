@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="LVGL.Portable.vcxitems.filters" />
+  <Import Project="LVGL.Drivers.vcxitems.filters" />
+  <ItemGroup>
+    <ClInclude Include="lv_conf.h" />
+    <ClInclude Include="lv_drv_conf.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="esp32_ui\ui.h">
+      <Filter>eps32_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="esp32_ui\ui_helpers.h">
+      <Filter>eps32_ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="LVGL.Simulator.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Mile.Project.Properties.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LVGL.Simulator.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="esp32_ui\ui.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_helpers.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_back_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_forward_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_heart_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_home_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_music_back_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_musicfill_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_myqr_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_play_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_qr_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_sunny_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_time_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_tutu_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="esp32_ui\ui_img_weather_png.c">
+      <Filter>eps32_ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LVGL.Simulator.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="LVGL.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="freetype.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="eps32_ui">
+      <UniqueIdentifier>{4f587e6d-bbfe-4415-96af-637562097377}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

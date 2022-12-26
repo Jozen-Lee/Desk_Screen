@@ -13,6 +13,7 @@
 
 #include <Arduino.h>
 #include "freertos/FreeRTOS.h"
+#include "freertos/queue.h"
 #include "ft6336.hpp"
 #include "bluetooth.h"
 #include "beep.h"
@@ -35,13 +36,24 @@
 #define PrioritySuperHigh     7
 #define PriorityRealtime      8
 
-void System_Tasks_Init(void);                                       
-void System_Resource_Init(void);  
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* RTOS resources */
+extern QueueHandle_t  MusicCmd_Port;
 
+#ifdef __cplusplus
+} /*extern "C"*/
+#endif
+
+/* Devices */
 extern Display screen;
 extern Bluetooth blt;
 extern Beep beep;
 extern Network wifi;
 extern arduino::ft6336<200, 200, 16, 17> touch;
+
+void System_Tasks_Init(void);                                       
+void System_Resource_Init(void);  
 
 #endif

@@ -26,18 +26,18 @@
 #include "beep.h"
 
 /* Static data */
-static uint16_t* _tune;
-static uint16_t* _beat;
-static uint16_t* _tune_record;
-static uint16_t* _beat_record;
-static uint16_t BASIC_BEAT_TIME = 100;
+static int16_t* _tune;
+static int16_t* _beat;
+static int16_t* _tune_record;
+static int16_t* _beat_record;
+static int16_t BASIC_BEAT_TIME = 100;
 bool music_playing = false;
 bool loop_flag = false;
 static esp_timer_handle_t music_timer;
 
 void music_timer_cb(void* arg) {
     if (*_tune && music_playing) {
-        ledcWriteTone(BEEP_PWM_CHANNEL, *_tune);
+        if(*_tune != -1) ledcWriteTone(BEEP_PWM_CHANNEL, *_tune);
         _tune++;
         esp_timer_start_once(music_timer, BASIC_BEAT_TIME * 1000 * (*_beat));
         _beat++;
@@ -73,7 +73,7 @@ void Beep::init(void) {
  * @param beat music tune beat, must to be static or global
  * @param loop_en enable loop mode
  */
-void Beep::music_set(uint16_t* tune, uint16_t* beat, bool loop_en) {
+void Beep::music_set(int16_t* tune, int16_t* beat, bool loop_en) {
     _tune = tune;
     _tune_record = tune;
     _beat = beat;
@@ -81,7 +81,7 @@ void Beep::music_set(uint16_t* tune, uint16_t* beat, bool loop_en) {
     loop_flag = loop_en;
 
     /* Start music */
-    start();
+    // start();
 }
 
 void Beep::start(void) {

@@ -13,16 +13,16 @@
     @note
         -# init
             Network wifi;
-            String ssid = "wifi_ssid";         
-            String password = "wifi_password";   
+            String ssid = "wifi_ssid";
+            String password = "wifi_password";
             wifi.init(ssid, password);
 
         -# get_fans_num
             Serial.println(wifi.getBilibiliFans("your bilibili uid"));
 
-        -# get weather 
+        -# get weather
             Serial.println(wifi.getWeather("北京"));
-            
+
 
   ******************************************************************************
   ******************************************************************************
@@ -33,11 +33,11 @@
 /* This is used to get weather information, you can get more details in
     https://seniverse.yuque.com/hyper_data/api_v3/nyiu3t?
 */
-#define XINZHI_KEY "SS83u1ASzT0vFcccR" // change this value to your private key 
+#define XINZHI_KEY "SS83u1ASzT0vFcccR"    // change this value to your private key
 
 void Network::init(String ssid, String password) {
-    /* enable wifi scan */
-    #if 0
+/* enable wifi scan */
+#if 0
     Serial.println("scan start");
     int n = WiFi.scanNetworks();
     Serial.println("scan done");
@@ -58,7 +58,7 @@ void Network::init(String ssid, String password) {
         }
     }
     Serial.println("");
-    #endif
+#endif
 
     Serial.print("Connecting: ");
     Serial.print(ssid.c_str());
@@ -73,6 +73,7 @@ void Network::init(String ssid, String password) {
     Serial.println("WiFi connected!");
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
+
     /* config world time */
     configWorldTime();
 }
@@ -112,29 +113,39 @@ void Network::configWorldTime() {
     struct tm timeinfo;
     if (!getLocalTime(&timeinfo)) {
         configTime(8 * 3600, 0, NTP1, NTP2, NTP3);
-        return;
     }
     /* format output: 2021-10-24 23:00:44 Sunday */
-    Serial.println(&timeinfo, "%F %T %A");
+    // Serial.println(&timeinfo, "%F %T %A");
 }
 
+String Network::composeZXaddress(String city) {
+    String url_xinzhi = "https://api.seniverse.com/v3/weather/now.json?key=";
+    url_xinzhi += XINZHI_KEY;
+    url_xinzhi += "&location=";
+    url_xinzhi += city;
+    url_xinzhi += "&language=zh-Hans&unit=c";
+    return url_xinzhi;
+}
+
+/**
+ * @brief get the weather of the specific city
+ *
+ * @param city
+ * @return String
+ */
 String Network::getWeather(String city) {
     String weather;
     HTTPClient http;
     DynamicJsonDocument doc(1024);
 
     /* Compose url */
-    String url_xinzhi = "https://api.seniverse.com/v3/weather/now.json?key=";
-    url_xinzhi += XINZHI_KEY;
-    url_xinzhi += "&location=";
-    url_xinzhi += city;
-    url_xinzhi += "&language=zh-Hans&unit=c";
-
+    String url_xinzhi = composeZXaddress(city);
     http.begin(url_xinzhi);
     int httpGet = http.GET();
     if (httpGet > 0) {
         if (httpGet == HTTP_CODE_OK) {
             String json = http.getString();
+            Serial.println(json);
             deserializeJson(doc, json);
             weather = doc["results"][0]["now"]["text"].as<String>();
         } else {
@@ -147,6 +158,63 @@ String Network::getWeather(String city) {
     return weather;
 }
 
-void Network::stop(void){
-    WiFi.disconnect(true);
+/**
+ * @brief get the information of your city refer to ip
+ *
+ * @param country
+ * @param province
+ * @param city
+ * @param weather
+ * @param temp
+ * @note data format:
+ * {"results":[{"location":{"id":"W7YGK0CKZKF9","name":"茂名",
+ * "country":"CN","path":"茂名,茂名,广东,中国",
+ * "timezone":"Asia/Shanghai","timezone_offset":"+08:00"},
+ * "now":{"text":"晴","code":"0","temperature":"21"},"last_update":"2022-12-26T13:40:11+08:00"}]}
+ */
+bool Network::getCityinfo(String& country, String& province, String& city, String& weather, String& temp) {
+    HTTPClient http;
+    DynamicJsonDocument doc(1024);
+    /* Compose url */
+    String url_xinzhi = composeZXaddress("ip");
+    http.begin(url_xinzhi);
+    int httpGet = http.GET();
+    if (httpGet > 0) {
+        if (httpGet == HTTP_CODE_OK) {
+            String json = http.getString();
+            deserializeJson(doc, json);
+            String loc = doc["results"][0]["location"]["path"].as<String>();
+            String loc_split[4];
+            stringSplit(loc_split, loc, ',');
+            city = loc_split[1];
+            province = loc_split[2];
+            country = loc_split[3];
+            weather = doc["results"][0]["now"]["text"].as<String>();
+            temp = doc["results"][0]["now"]["temperature"].as<String>();
+            return true;
+        } else {
+            Serial.printf("ERROR!");
+            return false;
+        }
+    } else {
+        Serial.printf("ERROR!");
+        return false;
+    }
+}
+
+void Network::stop(void) { WiFi.disconnect(true); }
+
+void Network::stringSplit(String* dst, String message, char flag){
+    int flag_position;
+    uint8_t num = 0;
+    /* Split String */
+    do {
+        flag_position = message.indexOf(flag);
+        if (flag_position != -1) {
+            dst[num++] = message.substring(0, flag_position);
+            message = message.substring(flag_position + 1, message.length());
+        } else {
+            dst[num] = message;
+        }
+    } while (flag_position >= 0);
 }

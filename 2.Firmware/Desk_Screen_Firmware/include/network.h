@@ -18,13 +18,15 @@
 class Network
 {
 private:
-	 
+	String composeZXaddress(String city);
 public:
 	void init(String ssid, String password);
 	uint16_t getBilibiliFans(String url);
     void configWorldTime();
     String getWeather(String city);
+    bool getCityinfo(String& country, String& province,String& city, String& weather, String& temp);
     void stop(void);
+    static void stringSplit(String* dst, String src, char flag);
 };
 
 

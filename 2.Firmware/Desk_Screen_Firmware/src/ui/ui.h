@@ -57,8 +57,8 @@ extern lv_obj_t * ui_btn_play_music;
 extern lv_obj_t * ui_btn_forward_music;
 extern lv_obj_t * ui_btn_backward_music;
 extern lv_obj_t * ui_QRPage;
-void ui_event_SettingPage_btnBack(lv_event_t * e);
-extern lv_obj_t * ui_SettingPage_btnBack;
+void ui_event_QRPage_btnBack(lv_event_t * e);
+extern lv_obj_t * ui_QRPage_btnBack;
 extern lv_obj_t * ui_img_myQR;
 
 
@@ -69,12 +69,17 @@ LV_IMG_DECLARE(ui_img_musicfill_png);    // assets\musicfill.png
 LV_IMG_DECLARE(ui_img_qr_png);    // assets\QR.png
 LV_IMG_DECLARE(ui_img_home_png);    // assets\home.png
 LV_IMG_DECLARE(ui_img_back_png);    // assets\back.png
-LV_IMG_DECLARE(ui_img_sunny_png);    // assets\sunny.png
+LV_IMG_DECLARE(ui_img_cloud_png);    // assets\cloud.png
 LV_IMG_DECLARE(ui_img_heart_png);    // assets\heart.png
 LV_IMG_DECLARE(ui_img_play_png);    // assets\play.png
 LV_IMG_DECLARE(ui_img_forward_png);    // assets\forward.png
 LV_IMG_DECLARE(ui_img_music_back_png);    // assets\music_back.png
 LV_IMG_DECLARE(ui_img_myqr_png);    // assets\myQR.png
+LV_IMG_DECLARE(ui_img_click_png);    // assets\click.png
+LV_IMG_DECLARE(ui_img_setting_png);    // assets\setting.png
+LV_IMG_DECLARE(ui_img_sunny_png);    // assets\sunny.png
+LV_IMG_DECLARE(ui_img_tiger_png);    // assets\tiger.png
+LV_IMG_DECLARE(ui_img_rain_png);    // assets\rain.png
 
 
 

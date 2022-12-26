@@ -6,6 +6,7 @@
 #include "ui.h"
 #include "ui_helpers.h"
 #include "Application/Service_Device.h"
+#include "Application/Service_Interaction.h"
 
 ///////////////////// VARIABLES ////////////////////
 lv_obj_t * ui_HomePage;
@@ -90,7 +91,7 @@ void ui_event_btnMusic(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(ui_WeatherPage, LV_SCR_LOAD_ANIM_NONE, 0, 0);
+        _ui_screen_change(ui_MusicPage, LV_SCR_LOAD_ANIM_NONE, 0, 0);
     }
     xTaskNotifyGive(Screen_Handle);
 }
@@ -147,6 +148,15 @@ void ui_event_SettingPage_btnBack(lv_event_t * e)
         _ui_screen_change(ui_MenuPage, LV_SCR_LOAD_ANIM_NONE, 0, 0);
     }
     xTaskNotifyGive(Screen_Handle);
+}
+void ui_event_MusicCmd(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    int8_t* data = lv_event_get_user_data(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        xQueueSend(MusicCmd_Port, data, 0);
+    }
 }
 
 ///////////////////// SCREENS ////////////////////
@@ -309,7 +319,7 @@ void ui_TimePage_screen_init(void)
     lv_obj_set_x(ui_label_day, 0);
     lv_obj_set_y(ui_label_day, 60);
     lv_obj_set_align(ui_label_day, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_label_day, "星期六,煜个头头");
+    lv_label_set_text(ui_label_day, "星期日");
     // lv_obj_set_style_text_font(ui_label_day, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_label_day, &arial_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -341,7 +351,7 @@ void ui_WeatherPage_screen_init(void)
     lv_obj_set_x(ui_label_weather, 20);
     lv_obj_set_y(ui_label_weather, -40);
     lv_obj_set_align(ui_label_weather, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_label_weather, "多云, 小雪");
+    lv_label_set_text(ui_label_weather, "多云");
     // lv_obj_set_style_text_font(ui_label_weather, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_label_weather, &arial_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -351,7 +361,7 @@ void ui_WeatherPage_screen_init(void)
     lv_obj_set_x(ui_label_location, 0);
     lv_obj_set_y(ui_label_location, 60);
     lv_obj_set_align(ui_label_location, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_label_location, "广东省/茂名市");
+    lv_label_set_text(ui_label_location, "北京");
     // lv_obj_set_style_text_font(ui_label_location, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_label_location, &arial_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     ui_label_temp = lv_label_create(ui_WeatherPage);
@@ -455,6 +465,11 @@ void ui_MusicPage_screen_init(void)
 
     lv_obj_add_event_cb(ui_MusicPage_btnBack, ui_event_MusicPage_btnBack, LV_EVENT_ALL, NULL);
 
+    /* Add music event */
+    static int8_t cmd[3] = {-1, 0, 1};
+    lv_obj_add_event_cb(ui_btn_backward_music, ui_event_MusicCmd, LV_EVENT_ALL, &cmd[0]);
+    lv_obj_add_event_cb(ui_btn_play_music, ui_event_MusicCmd, LV_EVENT_ALL, &cmd[1]);
+    lv_obj_add_event_cb(ui_btn_forward_music, ui_event_MusicCmd, LV_EVENT_ALL, &cmd[2]);
 }
 void ui_QRPage_screen_init(void)
 {
